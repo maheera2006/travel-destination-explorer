@@ -1,0 +1,100 @@
+/**
+ * Design Tokens & Theme Variables
+ * WCAG 2.2 AA Compliant Contrast Ratios
+ */
+
+:root {
+  /* Brand Palettes */
+  --color-primary: #0284c7;        /* Sky 600 */
+  --color-primary-hover: #0369a1;  /* Sky 700 */
+  --color-primary-light: #e0f2fe;  /* Sky 100 */
+  --color-primary-dark: #0c4a6e;   /* Sky 900 */
+
+  --color-accent: #f59e0b;         /* Amber 500 */
+  --color-accent-hover: #d97706;   /* Amber 600 */
+  --color-accent-light: #fef3c7;   /* Amber 100 */
+
+  --color-success: #10b981;        /* Emerald 500 */
+  --color-success-bg: #ecfdf5;     /* Emerald 50 */
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fffbeb;
+  --color-danger: #ef4444;         /* Red 500 */
+  --color-danger-hover: #dc2626;   /* Red 600 */
+  --color-danger-bg: #fef2f2;      /* Red 50 */
+
+  /* Neutral Light Palette */
+  --bg-app: #f8fafc;               /* Slate 50 */
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-subtle: #f1f5f9;            /* Slate 100 */
+  --bg-overlay: rgba(15, 23, 42, 0.65); /* Slate 900 with alpha */
+
+  --text-main: #0f172a;            /* Slate 900 */
+  --text-muted: #475569;           /* Slate 600 */
+  --text-subtle: #64748b;          /* Slate 500 */
+  --text-inverse: #ffffff;
+
+  --border-light: #e2e8f0;         /* Slate 200 */
+  --border-medium: #cbd5e1;        /* Slate 300 */
+  --border-focus: #0284c7;
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Spacing */
+  --space-2xs: 0.25rem;  /* 4px */
+  --space-xs: 0.5rem;    /* 8px */
+  --space-sm: 0.75rem;   /* 12px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Layout */
+  --container-max: 1280px;
+  --header-height: 72px;
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] {
+  --bg-app: #0b1120;               /* Deep navy slate */
+  --bg-surface: #1e293b;           /* Slate 800 */
+  --bg-surface-elevated: #334155;  /* Slate 700 */
+  --bg-subtle: #1e293b;
+  --bg-overlay: rgba(2, 6, 23, 0.82);
+
+  --text-main: #f8fafc;            /* Slate 50 */
+  --text-muted: #cbd5e1;           /* Slate 300 */
+  --text-subtle: #94a3b8;          /* Slate 400 */
+  --text-inverse: #0f172a;
+
+  --border-light: #334155;
+  --border-medium: #475569;
+  --border-focus: #38bdf8;
+
+  --color-primary: #38bdf8;        /* Sky 400 */
+  --color-primary-hover: #7dd3fc;  /* Sky 300 */
+  --color-primary-light: #082f49;  /* Sky 950 */
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+}

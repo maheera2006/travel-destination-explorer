@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automated Smoke Tests | Travel Destination Explorer</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <style>
+    body {
+      padding: var(--space-xl) var(--space-md);
+      background-color: var(--bg-app);
+    }
+    .test-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      box-shadow: var(--shadow-md);
+    }
+    .status-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-lg);
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+    }
+    .status-banner.passed {
+      background-color: var(--color-success-bg);
+      border-color: var(--color-success);
+      color: var(--color-success);
+    }
+    .status-banner.failed {
+      background-color: var(--color-danger-bg);
+      border-color: var(--color-danger);
+      color: var(--color-danger);
+    }
+    .test-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .test-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--border-medium);
+      background-color: var(--bg-surface);
+      font-size: 0.92rem;
+    }
+    .test-item.pass {
+      border-left-color: var(--color-success);
+    }
+    .test-item.fail {
+      border-left-color: var(--color-danger);
+      background-color: var(--color-danger-bg);
+    }
+    .test-icon {
+      font-weight: 800;
+    }
+    .btn-bar {
+      display: flex;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+      border-top: 1px solid var(--border-light);
+      padding-top: var(--space-md);
+    }
+  </style>
+</head>
+<body>
+  <div class="test-card">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-md);">
+      <div>
+        <h2>🧪 Automated Smoke Test Suite</h2>
+        <p style="font-size: 0.88rem; color: var(--text-subtle);">
+          Validates data integrity, security validators, calculations, repository CRUD, and E2E workflows.
+        </p>
+      </div>
+      <a href="../index.html" class="btn btn-sm btn-secondary">← Back to App</a>
+    </div>
+
+    <!-- Status Banner -->
+    <div id="test-banner" class="status-banner">
+      <div>
+        <h3 id="banner-title" style="margin: 0;">Running Automated Tests...</h3>
+        <span id="banner-stats" style="font-size: 0.85rem;">Executing assertion battery...</span>
+      </div>
+      <div id="banner-badge" style="font-size: 1.5rem; font-weight: 800;">⏳</div>
+    </div>
+
+    <!-- Test Results List -->
+    <ul id="test-results-list" class="test-list"></ul>
+
+    <!-- Bottom Actions -->
+    <div class="btn-bar">
+      <button type="button" class="btn btn-primary" id="btn-rerun">↻ Run Tests Again</button>
+      <a href="../index.html" class="btn btn-secondary">Launch Application ➔</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { TestRunner } from './test-suite.js';
+
+    const listElement = document.getElementById('test-results-list');
+    const banner = document.getElementById('test-banner');
+    const bannerTitle = document.getElementById('banner-title');
+    const bannerStats = document.getElementById('banner-stats');
+    const bannerBadge = document.getElementById('banner-badge');
+    const rerunBtn = document.getElementById('btn-rerun');
+
+    async function execute() {
+      listElement.innerHTML = '';
+      banner.className = 'status-banner';
+      bannerTitle.textContent = 'Running Automated Tests...';
+      bannerStats.textContent = 'Executing assertions...';
+      bannerBadge.textContent = '⏳';
+
+      const runner = new TestRunner((result) => {
+        const li = document.createElement('li');
+        li.className = `test-item ${result.passed ? 'pass' : 'fail'}`;
+        li.innerHTML = `
+          <span class="test-icon">${result.passed ? '✅' : '❌'}</span>
+          <div>
+            <strong>${result.description}</strong>
+            ${result.details ? `<div style="color: var(--color-danger); font-size: 0.82rem; margin-top: 2px;">${result.details}</div>` : ''}
+          </div>
+        `;
+        listElement.appendChild(li);
+      });
+
+      const summary = await runner.runAll();
+
+      if (summary.allPassed) {
+        banner.className = 'status-banner passed';
+        bannerTitle.textContent = 'All Automated Tests Passed!';
+        bannerStats.textContent = `${summary.passed} of ${summary.total} assertions passed cleanly. Zero errors.`;
+        bannerBadge.textContent = '✓';
+      } else {
+        banner.className = 'status-banner failed';
+        bannerTitle.textContent = 'Test Failures Detected';
+        bannerStats.textContent = `${summary.failed} assertions failed out of ${summary.total}. Review details below.`;
+        bannerBadge.textContent = '✕';
+      }
+    }
+
+    rerunBtn.addEventListener('click', execute);
+    execute();
+  </script>
+</body>
+</html>
